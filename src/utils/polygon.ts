@@ -81,7 +81,6 @@ export const getIntersectionPolygon = (
 
   for (let i = 0; i < p1.length; i++) {
     if (geometric.pointInPolygon(p1[i], p2)) intersections.push(p1[i]);
-
     for (let j = i; j < p2.length; j++) addNextPoints(i, j);
   }
 
