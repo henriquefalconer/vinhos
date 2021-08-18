@@ -26,72 +26,44 @@ const getLineIntersection = (
   return [a + alpha * (c - a), b + alpha * (d - b)];
 };
 
-const getAngle = (p: geometric.Point): number | null => {
-  if (!p) return null;
-  const angle: number = 90 + geometric.lineAngle([[200, 200], p]);
-  return angle < 0 ? 360 + angle : angle;
-};
-
-const getPointsInPolygon = (p1: geometric.Polygon, p2: geometric.Polygon) =>
-  keySort(
-    p1.filter((point) => geometric.pointInPolygon(point, p2)),
-    (p) => getAngle(p) as number
-  );
-
-export const getIntersectionPolygon = (
+const getIntersectionPoints = (
   p1: geometric.Polygon,
   p2: geometric.Polygon
 ) => {
   const intersections: geometric.Point[] = [];
 
-  const points = getPointsInPolygon(p2, p1);
-
-  let intersectionAngle = 0;
-  let interiorPointAngle = getAngle(points?.[0]);
-
-  // Adicionar pontos internos de p2 a intersections, considerando a ordem correta de ângulos.
-  const addP2InternalPoints = () => {
-    if (interiorPointAngle && interiorPointAngle < intersectionAngle) {
-      const newPoint = points.shift() as geometric.Point;
-
-      intersections.push(newPoint);
-
-      interiorPointAngle = getAngle(points?.[0]);
-
-      return true;
-    }
-
-    return false;
-  };
-
-  // Adicionar pontos a intersections, dados os índices dos segmentos de p1 e p2 a serem analisados.
-  const addNextPoints = (i: number, j: number) => {
-    const line1: geometric.Line = [p1[i], p1[(i + 1) % p1.length]];
-    const line2: geometric.Line = [p2[j], p2[(j + 1) % p2.length]];
-
-    const inter = getLineIntersection(line1, line2);
-
-    if (inter) {
-      intersectionAngle = getAngle(inter) as number;
-
-      while (addP2InternalPoints()) {}
-
-      intersections.push(inter);
-    }
-  };
-
   for (let i = 0; i < p1.length; i++) {
-    if (geometric.pointInPolygon(p1[i], p2)) intersections.push(p1[i]);
-    for (let j = i; j < p2.length; j++) addNextPoints(i, j);
+    for (let j = i; j < p2.length; j++) {
+      const line1: geometric.Line = [p1[i], p1[(i + 1) % p1.length]];
+      const line2: geometric.Line = [p2[j], p2[(j + 1) % p2.length]];
+
+      const inter = getLineIntersection(line1, line2);
+
+      if (inter) intersections.push(inter);
+    }
   }
 
-  addNextPoints(p1.length - 1, 0);
-
-  intersectionAngle = 360;
-
-  while (addP2InternalPoints()) {}
-
   return intersections;
+};
+
+const getAngle = (p: geometric.Point): number => {
+  const angle: number = 90 + geometric.lineAngle([[200, 200], p]);
+  return angle < 0 ? 360 + angle : angle;
+};
+
+const getPointsInPolygon = (p1: geometric.Polygon, p2: geometric.Polygon) =>
+  p1.filter((point) => geometric.pointInPolygon(point, p2));
+
+export const getIntersectionPolygon = (
+  p1: geometric.Polygon,
+  p2: geometric.Polygon
+) => {
+  const points1 = getPointsInPolygon(p1, p2);
+  const points2 = getPointsInPolygon(p2, p1);
+
+  const inter = getIntersectionPoints(p1, p2);
+
+  return keySort([...inter, ...points1, ...points2], (p) => getAngle(p));
 };
 
 export const getPolygonArea = (p: geometric.Polygon) =>
