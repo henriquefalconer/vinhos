@@ -30,11 +30,7 @@ const GraphScreen: React.FC = () => {
       <S.Space size={20} />
       <S.Text>Área combinada: {unionArea.toFixed(2)}</S.Text>
       <S.Space size={34} />
-      <Graph
-        wineScores={wineScores}
-        foodScores={foodScores}
-        intersection={inter}
-      />
+      <Graph wineScores={wineScores} foodScores={foodScores} />
       <S.Space size={34} />
       <S.Text>Combinação: {((interArea / unionArea) * 100).toFixed(2)}%</S.Text>
     </S.Container>

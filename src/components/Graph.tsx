@@ -1,25 +1,14 @@
 import React from 'react';
-import geometric from 'geometric';
 import { Svg, Circle, Line, Path } from 'react-native-svg';
 
-import {
-  wineAngles,
-  foodAngles,
-  generatePointsPath,
-  generatePolygonPath,
-} from '../utils/radar';
+import { wineAngles, foodAngles, generatePointsPath } from '../utils/radar';
 
 interface GraphProps {
   wineScores: number[];
   foodScores: number[];
-  intersection: geometric.Polygon;
 }
 
-const Graph: React.FC<GraphProps> = ({
-  wineScores,
-  foodScores,
-  intersection,
-}) => {
+const Graph: React.FC<GraphProps> = ({ wineScores, foodScores }) => {
   return (
     <Svg height="400" width="400">
       {Array.from({ length: 10 }, (_, i) => (
@@ -56,25 +45,14 @@ const Graph: React.FC<GraphProps> = ({
       ))}
       <Path
         d={generatePointsPath(wineScores, wineAngles)}
-        fill="#f0f5"
-        stroke="purple"
+        fill="#a262f552"
+        stroke="white"
       />
       <Path
         d={generatePointsPath(foodScores, foodAngles)}
-        fill="#ff05"
-        stroke="yellow"
+        fill="#1ed44552"
+        stroke="white"
       />
-      <Path d={generatePolygonPath(intersection)} fill="#f005" stroke="red" />
-      {intersection.map(([x, y]) => (
-        <Circle
-          key={`${x}-${y}`}
-          cx={`${x}`}
-          cy={`${y}`}
-          r="3"
-          stroke="red"
-          strokeWidth="2"
-        />
-      ))}
     </Svg>
   );
 };
