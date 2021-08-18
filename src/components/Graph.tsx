@@ -89,9 +89,9 @@ const Graph: React.FC<GraphProps> = ({
             fill="#f003"
             stroke="red"
           />
-          {intersection.map(([x, y]) => (
+          {intersection.map(([x, y], i) => (
             <Circle
-              key={`${x}-${y}`}
+              key={`${x}-${y}-${i}`}
               cx={`${x}`}
               cy={`${y}`}
               r="3"
