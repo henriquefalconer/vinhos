@@ -51,16 +51,17 @@ export const getIntersectionPolygon = (
 
   // Sequencialmente adicionar pontos internos de p2 a intersections.
   const addP2InternalPoints = () => {
-    if (!interiorPointAngle || interiorPointAngle >= intersectionAngle)
-      return false;
+    if (interiorPointAngle && interiorPointAngle < intersectionAngle) {
+      const newPoint = points.shift() as geometric.Point;
 
-    const newPoint = points.shift() as geometric.Point;
+      intersections.push(newPoint);
 
-    intersections.push(newPoint);
+      interiorPointAngle = getAngle(points?.[0]);
 
-    interiorPointAngle = getAngle(points?.[0]);
+      return true;
+    }
 
-    return true;
+    return false;
   };
 
   // Sequencialmente adicionar pontos internos de p2 ao polígono.
