@@ -11,8 +11,8 @@ export const buildPolygon = (
   angles: number[]
 ): geometric.Polygon =>
   points.map((p, i, _, a = angles[i]) => [
-    200 + (p + 1e-14) * 18 * Math.cos(a),
-    200 + (p + 1e-14) * 18 * Math.sin(a),
+    200 + (p || 1e-14) * 18 * Math.cos(a),
+    200 + (p || 1e-14) * 18 * Math.sin(a),
   ]);
 
 export const generatePolygonPath = (points: geometric.Polygon) =>
