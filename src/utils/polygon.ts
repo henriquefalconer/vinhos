@@ -49,7 +49,7 @@ export const getIntersectionPolygon = (
   let intersectionAngle = 0;
   let interiorPointAngle = getAngle(points?.[0]);
 
-  // Sequencialmente adicionar pontos internos de p2 a intersections.
+  // Adicionar pontos internos de p2 a intersections, considerando a ordem correta de ângulos.
   const addP2InternalPoints = () => {
     if (interiorPointAngle && interiorPointAngle < intersectionAngle) {
       const newPoint = points.shift() as geometric.Point;
@@ -64,7 +64,7 @@ export const getIntersectionPolygon = (
     return false;
   };
 
-  // Sequencialmente adicionar pontos internos de p2 ao polígono.
+  // Adicionar pontos a intersections, dados os índices dos segmentos de p1 e p2 a serem analisados.
   const addNextPoints = (i: number, j: number) => {
     const line1: geometric.Line = [p1[i], p1[(i + 1) % p1.length]];
     const line2: geometric.Line = [p2[j], p2[(j + 1) % p2.length]];
