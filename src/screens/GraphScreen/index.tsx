@@ -33,6 +33,10 @@ const GraphScreen: React.FC = () => {
       </S.Text>
       <S.Space size={20} />
       <S.Text>
+        Área intersecção: <S.Bold>{interArea.toFixed(2)}</S.Bold>
+      </S.Text>
+      <S.Space size={20} />
+      <S.Text>
         Área combinada: <S.Bold>{unionArea.toFixed(2)}</S.Bold>
       </S.Text>
       <S.Space size={34} />
