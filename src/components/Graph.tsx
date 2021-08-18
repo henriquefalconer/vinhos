@@ -1,5 +1,13 @@
 import React from 'react';
-import { Svg, Circle, Line, Path } from 'react-native-svg';
+import {
+  Svg,
+  Circle,
+  Line,
+  Path,
+  Defs,
+  Stop,
+  LinearGradient,
+} from 'react-native-svg';
 
 import { wineAngles, foodAngles, generatePointsPath } from '../utils/radar';
 
@@ -43,14 +51,24 @@ const Graph: React.FC<GraphProps> = ({ wineScores, foodScores }) => {
           strokeWidth="2.5"
         />
       ))}
+      <Defs>
+        <LinearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%">
+          <Stop offset="0%" stopColor="#5900ff" stopOpacity="0.6" />
+          <Stop offset="100%" stopColor="#66e200" stopOpacity="0.6" />
+        </LinearGradient>
+        <LinearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="0%">
+          <Stop offset="0%" stopColor="rgb(255,255,0)" stopOpacity="0.6" />
+          <Stop offset="100%" stopColor="rgb(255,0,0)" stopOpacity="0.6" />
+        </LinearGradient>
+      </Defs>
       <Path
         d={generatePointsPath(wineScores, wineAngles)}
-        fill="#a262f552"
+        fill="url(#grad1)"
         stroke="white"
       />
       <Path
         d={generatePointsPath(foodScores, foodAngles)}
-        fill="#1ed44552"
+        fill="url(#grad2)"
         stroke="white"
       />
     </Svg>
