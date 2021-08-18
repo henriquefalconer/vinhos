@@ -2,7 +2,7 @@ import geometric from 'geometric';
 
 export const wineAngles = [0, 120, 240].map((a) => ((a - 90) * Math.PI) / 180);
 
-export const foodAngles = [310, 50, 70, 170, 190, 290].map(
+export const foodAngles = [50, 70, 170, 190, 290, 310].map(
   (a) => ((a - 90) * Math.PI) / 180
 );
 

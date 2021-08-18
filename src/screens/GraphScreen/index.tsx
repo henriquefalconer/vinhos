@@ -8,7 +8,7 @@ import Graph from '../../components/Graph';
 import * as S from './styles';
 
 const wineScores = [10, 7, 10];
-const foodScores = [1, 4, 8, 10, 7, 9];
+const foodScores = [4, 8, 10, 7, 9, 1];
 
 const winePolygon = buildPolygon(wineScores, wineAngles);
 const foodPolygon = buildPolygon(foodScores, foodAngles);
