@@ -40,7 +40,11 @@ const GraphScreen: React.FC = () => {
         Área combinada: <S.Bold>{unionArea.toFixed(2)}</S.Bold>
       </S.Text>
       <S.Space size={34} />
-      <Graph wineScores={wineScores} foodScores={foodScores} />
+      <Graph
+        wineScores={wineScores}
+        foodScores={foodScores}
+        intersection={inter}
+      />
       <S.Space size={34} />
       <S.Text>
         Combinação:{' '}

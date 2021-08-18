@@ -1,4 +1,5 @@
 import React from 'react';
+import geometric from 'geometric';
 import {
   Svg,
   Circle,
@@ -9,14 +10,24 @@ import {
   LinearGradient,
 } from 'react-native-svg';
 
-import { wineAngles, foodAngles, generatePointsPath } from '../utils/radar';
+import {
+  wineAngles,
+  foodAngles,
+  generatePointsPath,
+  generatePolygonPath,
+} from '../utils/radar';
 
 interface GraphProps {
   wineScores: number[];
   foodScores: number[];
+  intersection?: geometric.Polygon;
 }
 
-const Graph: React.FC<GraphProps> = ({ wineScores, foodScores }) => {
+const Graph: React.FC<GraphProps> = ({
+  wineScores,
+  foodScores,
+  intersection,
+}) => {
   return (
     <Svg height="400" width="400">
       {Array.from({ length: 10 }, (_, i) => (
@@ -71,6 +82,25 @@ const Graph: React.FC<GraphProps> = ({ wineScores, foodScores }) => {
         fill="url(#grad2)"
         stroke="white"
       />
+      {intersection && (
+        <>
+          <Path
+            d={generatePolygonPath(intersection)}
+            fill="#f003"
+            stroke="red"
+          />
+          {intersection.map(([x, y]) => (
+            <Circle
+              key={`${x}-${y}`}
+              cx={`${x}`}
+              cy={`${y}`}
+              r="3"
+              stroke="red"
+              strokeWidth="2"
+            />
+          ))}
+        </>
+      )}
     </Svg>
   );
 };
