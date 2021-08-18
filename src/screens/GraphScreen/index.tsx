@@ -24,15 +24,24 @@ const unionArea = wineArea + foodArea - interArea;
 const GraphScreen: React.FC = () => {
   return (
     <S.Container>
-      <S.Text>Vinho: {wineArea.toFixed(2)}</S.Text>
+      <S.Text>
+        Área vinho: <S.Bold>{wineArea.toFixed(2)}</S.Bold>
+      </S.Text>
       <S.Space size={20} />
-      <S.Text>Alimento: {foodArea.toFixed(2)}</S.Text>
+      <S.Text>
+        Área alimento: <S.Bold>{foodArea.toFixed(2)}</S.Bold>
+      </S.Text>
       <S.Space size={20} />
-      <S.Text>Área combinada: {unionArea.toFixed(2)}</S.Text>
+      <S.Text>
+        Área combinada: <S.Bold>{unionArea.toFixed(2)}</S.Bold>
+      </S.Text>
       <S.Space size={34} />
       <Graph wineScores={wineScores} foodScores={foodScores} />
       <S.Space size={34} />
-      <S.Text>Combinação: {((interArea / unionArea) * 100).toFixed(2)}%</S.Text>
+      <S.Text>
+        Combinação:{' '}
+        <S.Bold>{((interArea / unionArea) * 100).toFixed(2)}%</S.Bold>
+      </S.Text>
     </S.Container>
   );
 };

@@ -12,8 +12,12 @@ export const Container = styled.View`
 
 export const Text = styled.Text`
   color: white;
-  font-size: 24px;
+  font-size: 22px;
   text-align: center;
+`;
+
+export const Bold = styled.Text`
+  font-weight: 600;
 `;
 
 export const Space = styled.View<SizeProps>`
