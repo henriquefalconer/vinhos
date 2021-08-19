@@ -11,17 +11,21 @@ const GraphScreen: React.FC = () => {
 
   return (
     <S.Container>
+      <S.Expand flex={1} />
       <Graph />
-      <S.Space size={34} />
-      {polygonData && (
-        <S.Text>
-          Combinação:{' '}
-          <S.Bold>
-            {((polygonData.interArea / polygonData.unionArea) * 100).toFixed(2)}
-            %
-          </S.Bold>
-        </S.Text>
-      )}
+      <S.Expand flex={2}>
+        {polygonData && (
+          <S.Text>
+            Combinação:{' '}
+            <S.Bold>
+              {((polygonData.interArea / polygonData.unionArea) * 100).toFixed(
+                2
+              )}
+              %
+            </S.Bold>
+          </S.Text>
+        )}
+      </S.Expand>
     </S.Container>
   );
 };
