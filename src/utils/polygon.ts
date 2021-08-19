@@ -48,8 +48,9 @@ const getIntersectionPoints = (
   return intersections;
 };
 
-const getAngle = (p: geometric.Point): number => {
-  const angle: number = 90 + geometric.lineAngle([[200, 200], p]);
+const getAngle = (p: geometric.Point, graphHalfWidth: number): number => {
+  const angle: number =
+    90 + geometric.lineAngle([[graphHalfWidth, graphHalfWidth], p]);
   return angle < 0 ? 360 + angle : angle;
 };
 
@@ -58,14 +59,17 @@ const getPointsInPolygon = (p1: geometric.Polygon, p2: geometric.Polygon) =>
 
 export const getIntersectionPolygon = (
   p1: geometric.Polygon,
-  p2: geometric.Polygon
+  p2: geometric.Polygon,
+  graphHalfWidth: number
 ) => {
   const points1 = getPointsInPolygon(p1, p2);
   const points2 = getPointsInPolygon(p2, p1);
 
   const inter = getIntersectionPoints(p1, p2);
 
-  return keySort([...points1, ...points2, ...inter], getAngle);
+  return keySort([...points1, ...points2, ...inter], (p) =>
+    getAngle(p, graphHalfWidth)
+  );
 };
 
 export const getPolygonArea = (p: geometric.Polygon) =>
@@ -73,8 +77,10 @@ export const getPolygonArea = (p: geometric.Polygon) =>
 
 export const buildPolygon = (
   points: number[],
-  angles: number[]
+  angles: number[],
+  graphHalfWidth: number,
+  axisSize: number
 ): geometric.Polygon =>
   points.map((p, i, _, a = angles[i]) =>
-    getAxisEnd(a, 0, Math.max(p, 1e-14) / 10)
+    getAxisEnd(a, axisSize, graphHalfWidth, 0, Math.max(p, 1e-14) / 10)
   );

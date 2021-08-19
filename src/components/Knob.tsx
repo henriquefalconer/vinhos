@@ -4,10 +4,10 @@ import geometric from 'geometric';
 
 import Svg, { Circle } from 'react-native-svg';
 
-import { AXIS_SIZE, getAxisEnd } from '../utils/radar';
+import { getAxisEnd } from '../utils/radar';
+import { PolygonData, useHarmonization } from '../hooks/useHarmonization';
 
 interface KnobProps {
-  graphYOffset: number;
   score: number;
   onChange(value: number): void;
   angle: number;
@@ -18,13 +18,13 @@ const KNOB_SIZE = 50;
 const distanceSquared = (p1: geometric.Point, p2: geometric.Point) =>
   (p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2;
 
-const Knob: React.FC<KnobProps> = ({
-  graphYOffset,
-  score,
-  onChange,
-  angle,
-}) => {
+const Knob: React.FC<KnobProps> = ({ score, onChange, angle }) => {
   const firstUpdate = useRef(true);
+
+  const harmonization = useHarmonization();
+
+  const { graphHalfWidth, graphPosY, axisSize } =
+    harmonization.polygonData as PolygonData;
 
   const [value, setValue] = useState(score);
 
@@ -34,16 +34,16 @@ const Knob: React.FC<KnobProps> = ({
 
   const pan = useRef(new Animated.ValueXY()).current;
 
-  const [axisEndX, axisEndY] = getAxisEnd(angle);
+  const [axisEndX, axisEndY] = getAxisEnd(angle, axisSize, graphHalfWidth);
 
   const posX = pan.x.interpolate({
     inputRange: [0, 10],
-    outputRange: [200, axisEndX],
+    outputRange: [graphHalfWidth, axisEndX],
     extrapolate: 'clamp',
   });
   const posY = pan.y.interpolate({
     inputRange: [0, 10],
-    outputRange: [200, axisEndY],
+    outputRange: [graphHalfWidth, axisEndY],
     extrapolate: 'clamp',
   });
 
@@ -61,14 +61,17 @@ const Knob: React.FC<KnobProps> = ({
       onMoveShouldSetPanResponder: () => true,
       onPanResponderMove: (_, gestureState) => {
         const posX = gestureState.moveX;
-        const posY = gestureState.moveY - graphYOffset;
+        const posY = gestureState.moveY - graphPosY;
 
-        const toCenter = distanceSquared([200, 200], [posX, posY]);
+        const toCenter = distanceSquared(
+          [graphHalfWidth, graphHalfWidth],
+          [posX, posY]
+        );
         const toEnd = distanceSquared([axisEndX, axisEndY], [posX, posY]);
-        const distance = (toCenter - toEnd + AXIS_SIZE ** 2) / (2 * AXIS_SIZE);
+        const distance = (toCenter - toEnd + axisSize ** 2) / (2 * axisSize);
 
         const treatedValue = Math.min(
-          Math.max((distance / AXIS_SIZE) * 10, 0),
+          Math.max((distance / axisSize) * 10, 0),
           10
         );
 

@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useMemo, useState } from 'react';
+import { LayoutRectangle } from 'react-native';
 import geometric from 'geometric';
 
 import {
@@ -8,11 +9,10 @@ import {
 } from '../utils/polygon';
 import { foodAngles, wineAngles } from '../utils/radar';
 
-interface HarmonizationContextData {
-  wineScores: number[];
-  foodScores: number[];
-  setWineScores: React.Dispatch<React.SetStateAction<number[]>>;
-  setFoodScores: React.Dispatch<React.SetStateAction<number[]>>;
+export interface PolygonData {
+  graphHalfWidth: number;
+  graphPosY: number;
+  axisSize: number;
   winePolygon: geometric.Polygon;
   foodPolygon: geometric.Polygon;
   inter: geometric.Point[];
@@ -20,6 +20,17 @@ interface HarmonizationContextData {
   foodArea: number;
   interArea: number;
   unionArea: number;
+}
+
+interface HarmonizationContextData {
+  wineScores: number[];
+  foodScores: number[];
+  setWineScores: React.Dispatch<React.SetStateAction<number[]>>;
+  setFoodScores: React.Dispatch<React.SetStateAction<number[]>>;
+  setGraphLayout: React.Dispatch<
+    React.SetStateAction<LayoutRectangle | undefined>
+  >;
+  polygonData?: PolygonData;
 }
 
 const HarmonizationContext = createContext<HarmonizationContextData>(
@@ -30,11 +41,33 @@ export const HarmonizationProvider: React.FC = ({ children }) => {
   const [wineScores, setWineScores] = useState([10, 7, 10]);
   const [foodScores, setFoodScores] = useState([4, 8, 10, 2, 9, 1]);
 
-  const polygonData = useMemo(() => {
-    const winePolygon = buildPolygon(wineScores, wineAngles);
-    const foodPolygon = buildPolygon(foodScores, foodAngles);
+  const [graphLayout, setGraphLayout] = useState<LayoutRectangle>();
 
-    const inter = getIntersectionPolygon(winePolygon, foodPolygon);
+  const polygonData = useMemo(() => {
+    if (!graphLayout) return;
+
+    const graphHalfWidth = graphLayout.width / 2;
+    const graphPosY = graphLayout.y;
+    const axisSize = graphHalfWidth - 20;
+
+    const winePolygon = buildPolygon(
+      wineScores,
+      wineAngles,
+      graphHalfWidth,
+      axisSize
+    );
+    const foodPolygon = buildPolygon(
+      foodScores,
+      foodAngles,
+      graphHalfWidth,
+      axisSize
+    );
+
+    const inter = getIntersectionPolygon(
+      winePolygon,
+      foodPolygon,
+      graphHalfWidth
+    );
 
     const [wineArea, foodArea, interArea] = [
       winePolygon,
@@ -52,8 +85,11 @@ export const HarmonizationProvider: React.FC = ({ children }) => {
       foodArea,
       interArea,
       unionArea,
+      graphHalfWidth,
+      graphPosY,
+      axisSize,
     };
-  }, [wineScores, foodScores]);
+  }, [wineScores, foodScores, graphLayout]);
 
   return (
     <HarmonizationContext.Provider
@@ -62,7 +98,8 @@ export const HarmonizationProvider: React.FC = ({ children }) => {
         foodScores,
         setWineScores,
         setFoodScores,
-        ...polygonData,
+        setGraphLayout,
+        polygonData,
       }}
     >
       {children}

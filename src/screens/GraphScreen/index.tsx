@@ -7,16 +7,21 @@ import Graph from '../../components/Graph';
 import * as S from './styles';
 
 const GraphScreen: React.FC = () => {
-  const { interArea, unionArea } = useHarmonization();
+  const { polygonData } = useHarmonization();
 
   return (
     <S.Container>
       <Graph />
       <S.Space size={34} />
-      <S.Text>
-        Combinação:{' '}
-        <S.Bold>{((interArea / unionArea) * 100).toFixed(2)}%</S.Bold>
-      </S.Text>
+      {polygonData && (
+        <S.Text>
+          Combinação:{' '}
+          <S.Bold>
+            {((polygonData.interArea / polygonData.unionArea) * 100).toFixed(2)}
+            %
+          </S.Bold>
+        </S.Text>
+      )}
     </S.Container>
   );
 };
