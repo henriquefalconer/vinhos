@@ -1,31 +1,22 @@
 import React from 'react';
 
-import {
-  buildPolygon,
-  getIntersectionPolygon,
-  getPolygonArea,
-} from '../../utils/polygon';
-import { wineAngles, foodAngles } from '../../utils/radar';
+import { useHarmonization } from '../../hooks/useHarmonization';
 
 import Graph from '../../components/Graph';
 
 import * as S from './styles';
 
-const wineScores = [10, 7, 10];
-const foodScores = [4, 8, 10, 2, 9, 1];
-
-const winePolygon = buildPolygon(wineScores, wineAngles);
-const foodPolygon = buildPolygon(foodScores, foodAngles);
-
-const inter = getIntersectionPolygon(winePolygon, foodPolygon);
-
-const [wineArea, foodArea, interArea] = [winePolygon, foodPolygon, inter].map(
-  getPolygonArea
-);
-
-const unionArea = wineArea + foodArea - interArea;
-
 const GraphScreen: React.FC = () => {
+  const {
+    winePolygon,
+    foodPolygon,
+    inter,
+    wineArea,
+    foodArea,
+    interArea,
+    unionArea,
+  } = useHarmonization();
+
   return (
     <S.Container>
       <S.Text>
