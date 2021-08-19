@@ -15,15 +15,10 @@ const GraphScreen: React.FC = () => {
       <Graph />
       <S.Expand flex={2}>
         {polygonData && (
-          <S.Text>
-            Combinação:{' '}
-            <S.Bold>
-              {((polygonData.interArea / polygonData.unionArea) * 100).toFixed(
-                2
-              )}
-              %
-            </S.Bold>
-          </S.Text>
+          <>
+            <S.Text>Harmonização:</S.Text>
+            <S.Bold>{polygonData.harmonization}</S.Bold>
+          </>
         )}
       </S.Expand>
     </S.Container>

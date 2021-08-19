@@ -15,8 +15,9 @@ export const Text = styled.Text`
   text-align: center;
 `;
 
-export const Bold = styled.Text`
+export const Bold = styled(Text)`
   font-weight: 600;
+  margin-top: 4px;
 `;
 
 export const Expand = styled.View<ExpandProps>`

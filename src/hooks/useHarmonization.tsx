@@ -20,6 +20,7 @@ export interface PolygonData {
   foodArea: number;
   interArea: number;
   unionArea: number;
+  harmonization: string;
 }
 
 interface HarmonizationContextData {
@@ -88,6 +89,7 @@ export const HarmonizationProvider: React.FC = ({ children }) => {
       graphHalfWidth,
       graphPosY,
       axisSize,
+      harmonization: `${((interArea / unionArea) * 100).toFixed(2)}%`,
     };
   }, [wineScores, foodScores, graphLayout]);
 
