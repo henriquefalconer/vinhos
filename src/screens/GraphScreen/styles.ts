@@ -9,6 +9,10 @@ export const Container = styled.View`
   flex: 1;
 `;
 
+export const Row = styled.View`
+  flex-direction: row;
+`;
+
 export const Text = styled.Text`
   color: white;
   font-size: 22px;
@@ -17,7 +21,8 @@ export const Text = styled.Text`
 
 export const Bold = styled(Text)`
   font-weight: 600;
-  margin-top: 4px;
+  margin-left: 2px;
+  text-align: left;
 `;
 
 export const Expand = styled.View<ExpandProps>`

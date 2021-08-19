@@ -1,4 +1,5 @@
 import React from 'react';
+import { View } from 'react-native';
 
 import { useHarmonization } from '../../hooks/useHarmonization';
 
@@ -15,10 +16,12 @@ const GraphScreen: React.FC = () => {
       <Graph />
       <S.Expand flex={2}>
         {polygonData && (
-          <>
-            <S.Text>Harmonização:</S.Text>
-            <S.Bold>{polygonData.harmonization}</S.Bold>
-          </>
+          <S.Row>
+            <S.Text>Combinação: </S.Text>
+            <View style={{ width: 82 }}>
+              <S.Bold>{polygonData.harmonization}</S.Bold>
+            </View>
+          </S.Row>
         )}
       </S.Expand>
     </S.Container>
