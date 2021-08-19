@@ -67,8 +67,9 @@ const Knob: React.FC<KnobProps> = ({
         const toEnd = distanceSquared([axisEndX, axisEndY], [posX, posY]);
         const distance = (toCenter - toEnd + AXIS_SIZE ** 2) / (2 * AXIS_SIZE);
 
-        const treatedValue = Math.round(
-          Math.min(Math.max((distance / AXIS_SIZE) * 10, 0), 10)
+        const treatedValue = Math.min(
+          Math.max((distance / AXIS_SIZE) * 10, 0),
+          10
         );
 
         setValue(treatedValue);
