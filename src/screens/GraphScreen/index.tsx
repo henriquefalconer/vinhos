@@ -1,7 +1,11 @@
 import React from 'react';
 
-import { getIntersectionPolygon, getPolygonArea } from '../../utils/polygon';
-import { buildPolygon, wineAngles, foodAngles } from '../../utils/radar';
+import {
+  buildPolygon,
+  getIntersectionPolygon,
+  getPolygonArea,
+} from '../../utils/polygon';
+import { wineAngles, foodAngles } from '../../utils/radar';
 
 import Graph from '../../components/Graph';
 
@@ -41,8 +45,8 @@ const GraphScreen: React.FC = () => {
       </S.Text>
       <S.Space size={34} />
       <Graph
-        wineScores={wineScores}
-        foodScores={foodScores}
+        winePolygon={winePolygon}
+        foodPolygon={foodPolygon}
         intersection={inter}
       />
       <S.Space size={34} />

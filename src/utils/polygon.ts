@@ -68,3 +68,12 @@ export const getIntersectionPolygon = (
 
 export const getPolygonArea = (p: geometric.Polygon) =>
   geometric.polygonArea(p) / 200;
+
+export const buildPolygon = (
+  points: number[],
+  angles: number[]
+): geometric.Polygon =>
+  points.map((p, i, _, a = angles[i]) => [
+    200 + Math.max(p, 1e-14) * 18 * Math.cos(a),
+    200 + Math.max(p, 1e-14) * 18 * Math.sin(a),
+  ]);

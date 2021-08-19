@@ -10,22 +10,17 @@ import {
   LinearGradient,
 } from 'react-native-svg';
 
-import {
-  wineAngles,
-  foodAngles,
-  generatePointsPath,
-  generatePolygonPath,
-} from '../utils/radar';
+import { wineAngles, foodAngles, generatePolygonPath } from '../utils/radar';
 
 interface GraphProps {
-  wineScores: number[];
-  foodScores: number[];
+  winePolygon: geometric.Polygon;
+  foodPolygon: geometric.Polygon;
   intersection?: geometric.Polygon;
 }
 
 const Graph: React.FC<GraphProps> = ({
-  wineScores,
-  foodScores,
+  winePolygon,
+  foodPolygon,
   intersection,
 }) => {
   return (
@@ -73,12 +68,12 @@ const Graph: React.FC<GraphProps> = ({
         </LinearGradient>
       </Defs>
       <Path
-        d={generatePointsPath(wineScores, wineAngles)}
+        d={generatePolygonPath(winePolygon)}
         fill="url(#grad1)"
         stroke="white"
       />
       <Path
-        d={generatePointsPath(foodScores, foodAngles)}
+        d={generatePolygonPath(foodPolygon)}
         fill="url(#grad2)"
         stroke="white"
       />
