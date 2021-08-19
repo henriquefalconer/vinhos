@@ -9,6 +9,10 @@ import {
 import { foodAngles, wineAngles } from '../utils/radar';
 
 interface HarmonizationContextData {
+  wineScores: number[];
+  foodScores: number[];
+  setWineScores: React.Dispatch<React.SetStateAction<number[]>>;
+  setFoodScores: React.Dispatch<React.SetStateAction<number[]>>;
   winePolygon: geometric.Polygon;
   foodPolygon: geometric.Polygon;
   inter: geometric.Point[];
@@ -16,8 +20,6 @@ interface HarmonizationContextData {
   foodArea: number;
   interArea: number;
   unionArea: number;
-  setWineScores: React.Dispatch<React.SetStateAction<number[]>>;
-  setFoodScores: React.Dispatch<React.SetStateAction<number[]>>;
 }
 
 const HarmonizationContext = createContext<HarmonizationContextData>(
@@ -55,7 +57,13 @@ export const HarmonizationProvider: React.FC = ({ children }) => {
 
   return (
     <HarmonizationContext.Provider
-      value={{ ...polygonData, setWineScores, setFoodScores }}
+      value={{
+        wineScores,
+        foodScores,
+        setWineScores,
+        setFoodScores,
+        ...polygonData,
+      }}
     >
       {children}
     </HarmonizationContext.Provider>
