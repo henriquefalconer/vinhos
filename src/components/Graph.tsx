@@ -57,7 +57,7 @@ const Graph: React.FC = () => {
                 [x, y] = getAxisEnd(
                   angle,
                   polygonData.axisSize,
-                  polygonData.graphHalfWidth,
+                  polygonData.graphCenter,
                   15
                 )
               ) => (
@@ -80,7 +80,7 @@ const Graph: React.FC = () => {
                 [x, y] = getAxisEnd(
                   angle,
                   polygonData.axisSize,
-                  polygonData.graphHalfWidth,
+                  polygonData.graphCenter,
                   15
                 )
               ) => (

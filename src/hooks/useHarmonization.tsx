@@ -10,7 +10,7 @@ import {
 import { foodAngles, wineAngles } from '../utils/radar';
 
 export interface PolygonData {
-  graphHalfWidth: number;
+  graphCenter: number;
   graphPosY: number;
   axisSize: number;
   winePolygon: geometric.Polygon;
@@ -47,28 +47,24 @@ export const HarmonizationProvider: React.FC = ({ children }) => {
   const polygonData = useMemo(() => {
     if (!graphLayout) return;
 
-    const graphHalfWidth = graphLayout.width / 2;
+    const graphCenter = graphLayout.width / 2;
     const graphPosY = graphLayout.y;
-    const axisSize = graphHalfWidth - 20;
+    const axisSize = graphCenter - 20;
 
     const winePolygon = buildPolygon(
       wineScores,
       wineAngles,
-      graphHalfWidth,
+      graphCenter,
       axisSize
     );
     const foodPolygon = buildPolygon(
       foodScores,
       foodAngles,
-      graphHalfWidth,
+      graphCenter,
       axisSize
     );
 
-    const inter = getIntersectionPolygon(
-      winePolygon,
-      foodPolygon,
-      graphHalfWidth
-    );
+    const inter = getIntersectionPolygon(winePolygon, foodPolygon, graphCenter);
 
     const [wineArea, foodArea, interArea] = [
       winePolygon,
@@ -86,7 +82,7 @@ export const HarmonizationProvider: React.FC = ({ children }) => {
       foodArea,
       interArea,
       unionArea,
-      graphHalfWidth,
+      graphCenter,
       graphPosY,
       axisSize,
       harmonization: `${((interArea / unionArea) * 100).toFixed(2)}%`,

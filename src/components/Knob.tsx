@@ -23,7 +23,7 @@ const Knob: React.FC<KnobProps> = ({ score, onChange, angle }) => {
 
   const harmonization = useHarmonization();
 
-  const { graphHalfWidth, graphPosY, axisSize } =
+  const { graphCenter, graphPosY, axisSize } =
     harmonization.polygonData as PolygonData;
 
   const [value, setValue] = useState(score);
@@ -34,16 +34,16 @@ const Knob: React.FC<KnobProps> = ({ score, onChange, angle }) => {
 
   const pan = useRef(new Animated.ValueXY()).current;
 
-  const [axisEndX, axisEndY] = getAxisEnd(angle, axisSize, graphHalfWidth);
+  const [axisEndX, axisEndY] = getAxisEnd(angle, axisSize, graphCenter);
 
   const posX = pan.x.interpolate({
     inputRange: [0, 10],
-    outputRange: [graphHalfWidth, axisEndX],
+    outputRange: [graphCenter, axisEndX],
     extrapolate: 'clamp',
   });
   const posY = pan.y.interpolate({
     inputRange: [0, 10],
-    outputRange: [graphHalfWidth, axisEndY],
+    outputRange: [graphCenter, axisEndY],
     extrapolate: 'clamp',
   });
 
@@ -64,7 +64,7 @@ const Knob: React.FC<KnobProps> = ({ score, onChange, angle }) => {
         const posY = gestureState.moveY - graphPosY;
 
         const toCenter = distanceSquared(
-          [graphHalfWidth, graphHalfWidth],
+          [graphCenter, graphCenter],
           [posX, posY]
         );
         const toEnd = distanceSquared([axisEndX, axisEndY], [posX, posY]);
