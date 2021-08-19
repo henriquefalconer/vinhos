@@ -63,7 +63,7 @@ export const getIntersectionPolygon = (
 
   const inter = getIntersectionPoints(p1, p2);
 
-  return keySort([...inter, ...points1, ...points2], (p) => getAngle(p));
+  return keySort([...points1, ...points2, ...inter], getAngle);
 };
 
 export const getPolygonArea = (p: geometric.Polygon) =>
