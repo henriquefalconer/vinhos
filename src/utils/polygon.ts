@@ -14,7 +14,7 @@ const getLineIntersection = (
     f = l2[0][1],
     g = l2[1][0],
     h = l2[1][1],
-    det = c * f - b * g - a * f - c * h + b * e + a * h + d * g - d * e;
+    det = (c - a) * (f - h) - (d - b) * (e - g);
 
   if (!det) return null;
 
