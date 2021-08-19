@@ -31,8 +31,6 @@ const Graph: React.FC = () => {
     polygonData,
   } = useHarmonization();
 
-  console.log(polygonData?.graphHalfWidth);
-
   return (
     <View
       style={{ aspectRatio: 1, width: '100%' }}
