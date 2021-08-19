@@ -7,15 +7,7 @@ import Graph from '../../components/Graph';
 import * as S from './styles';
 
 const GraphScreen: React.FC = () => {
-  const {
-    winePolygon,
-    foodPolygon,
-    inter,
-    wineArea,
-    foodArea,
-    interArea,
-    unionArea,
-  } = useHarmonization();
+  const { wineArea, foodArea, interArea, unionArea } = useHarmonization();
 
   return (
     <S.Container>
@@ -35,11 +27,7 @@ const GraphScreen: React.FC = () => {
         Área combinada: <S.Bold>{unionArea.toFixed(2)}</S.Bold>
       </S.Text>
       <S.Space size={34} />
-      <Graph
-        winePolygon={winePolygon}
-        foodPolygon={foodPolygon}
-        intersection={inter}
-      />
+      <Graph />
       <S.Space size={34} />
       <S.Text>
         Combinação:{' '}
