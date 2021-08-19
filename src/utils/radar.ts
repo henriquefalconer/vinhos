@@ -1,10 +1,9 @@
 import geometric from 'geometric';
 
-export const wineAngles = [0, 120, 240].map((a) => ((a - 90) * Math.PI) / 180);
+const covertAngle = (a: number) => ((a - 90) * Math.PI) / 180;
 
-export const foodAngles = [50, 70, 170, 190, 290, 310].map(
-  (a) => ((a - 90) * Math.PI) / 180
-);
+export const wineAngles = [0, 120, 240].map(covertAngle);
+export const foodAngles = [50, 70, 170, 190, 290, 310].map(covertAngle);
 
 export const buildPolygon = (
   points: number[],
