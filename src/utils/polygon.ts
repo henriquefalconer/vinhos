@@ -1,5 +1,7 @@
 import keySort from './keySort';
 
+import { getAxisEnd } from './radar';
+
 const geometric = require('geometric');
 
 const getLineIntersection = (
@@ -73,7 +75,6 @@ export const buildPolygon = (
   points: number[],
   angles: number[]
 ): geometric.Polygon =>
-  points.map((p, i, _, a = angles[i]) => [
-    200 + Math.max(p, 1e-14) * 18 * Math.cos(a),
-    200 + Math.max(p, 1e-14) * 18 * Math.sin(a),
-  ]);
+  points.map((p, i, _, a = angles[i]) =>
+    getAxisEnd(a, 0, Math.max(p, 1e-14) / 10)
+  );
