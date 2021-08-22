@@ -29,6 +29,7 @@ const Knob: React.FC<KnobProps> = ({ score, onChange, angle }) => {
   const [value, setValue] = useState(score);
 
   useEffect(() => {
+    if (firstUpdate.current) return;
     onChange(value);
   }, [value]);
 
