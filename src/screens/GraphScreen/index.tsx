@@ -18,7 +18,7 @@ const GraphScreen: React.FC = () => {
         {polygonData && (
           <S.Row>
             <S.Text>Combinação: </S.Text>
-            <View style={{ width: 85 }}>
+            <View style={{ width: 98 }}>
               <S.Bold>{polygonData.harmonization}</S.Bold>
             </View>
           </S.Row>
