@@ -12,16 +12,15 @@ const getAxisEnd = (
   angle: number,
   axisSize: number,
   center: number,
-  offset = 0,
-  multiplier = 1
+  offset = 0
 ): geometric.Point => [
-  center + (axisSize + offset) * multiplier * Math.cos(angle),
-  center + (axisSize + offset) * multiplier * Math.sin(angle),
+  center + (axisSize + offset) * Math.cos(angle),
+  center + (axisSize + offset) * Math.sin(angle),
 ];
 
 const PARALLEL_DISTANCE = 14;
 
-const getParallelAxes = (line: geometric.Line, offset = 0) => {
+const getParallelAxes = (line: geometric.Line, offset: number) => {
   const a = line[0][0],
     b = line[0][1],
     c = line[1][0],
