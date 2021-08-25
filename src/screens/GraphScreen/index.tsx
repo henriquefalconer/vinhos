@@ -8,7 +8,7 @@ import Graph from '../../components/Graph';
 import * as S from './styles';
 
 const GraphScreen: React.FC = () => {
-  const { wineArea, foodArea, difference } = useHarmonization().polygonData;
+  const { wineArea, foodArea, areaDiff } = useHarmonization().polygonData;
 
   return (
     <S.Container>
@@ -24,7 +24,7 @@ const GraphScreen: React.FC = () => {
         </S.Text>
         <S.Size size={16} />
         <S.Text>
-          Diferença de áreas: <S.Bold>{difference}</S.Bold>
+          Diferença de áreas: <S.Bold>{areaDiff.toFixed(2)}</S.Bold>
         </S.Text>
       </S.Expand>
     </S.Container>

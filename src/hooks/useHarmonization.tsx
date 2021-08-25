@@ -12,7 +12,7 @@ export interface PolygonData {
   foodPolygon: geometric.Polygon;
   wineArea: number;
   foodArea: number;
-  difference: string;
+  areaDiff: number;
 }
 
 interface HarmonizationContextData {
@@ -45,7 +45,7 @@ export const HarmonizationProvider: React.FC = ({ children }) => {
 
     const [wineArea, foodArea] = [winePolygon, foodPolygon].map(getPolygonArea);
 
-    const difference = Math.abs(wineArea - foodArea).toFixed(2);
+    const areaDiff = Math.abs(wineArea - foodArea);
 
     return {
       winePolygon,
@@ -54,7 +54,7 @@ export const HarmonizationProvider: React.FC = ({ children }) => {
       foodArea,
       graphCenter,
       axisSize,
-      difference,
+      areaDiff,
     };
   }, [wineScores, foodScores]);
 
