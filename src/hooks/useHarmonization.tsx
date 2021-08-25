@@ -43,8 +43,8 @@ export const HarmonizationProvider: React.FC = ({ children }) => {
     const winePolygon = buildPolygon(wineScores, axesWine);
     const foodPolygon = buildPolygon(foodScores, axesFood);
 
-    const [wineArea, foodArea] = [winePolygon, foodPolygon].map((p) =>
-      getPolygonArea(p, width)
+    const [wineArea, foodArea] = [winePolygon, foodPolygon].map(
+      (p) => getPolygonArea(p) / width ** 2
     );
 
     const areaDiff = Math.abs(wineArea - foodArea);
