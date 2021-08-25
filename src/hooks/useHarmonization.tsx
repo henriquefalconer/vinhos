@@ -35,7 +35,7 @@ export const HarmonizationProvider: React.FC = ({ children }) => {
 
   const polygonData = useMemo(() => {
     const graphCenter = width / 2;
-    const axisSize = graphCenter - 20;
+    const axisSize = width * 0.448718;
 
     const axesWine = getWineAxes(axisSize, graphCenter);
     const axesFood = getFoodAxes(axisSize, graphCenter);
@@ -43,7 +43,9 @@ export const HarmonizationProvider: React.FC = ({ children }) => {
     const winePolygon = buildPolygon(wineScores, axesWine);
     const foodPolygon = buildPolygon(foodScores, axesFood);
 
-    const [wineArea, foodArea] = [winePolygon, foodPolygon].map(getPolygonArea);
+    const [wineArea, foodArea] = [winePolygon, foodPolygon].map((p) =>
+      getPolygonArea(p, width)
+    );
 
     const areaDiff = Math.abs(wineArea - foodArea);
 

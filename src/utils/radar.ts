@@ -18,9 +18,9 @@ const getAxisEnd = (
   center + (axisSize + offset) * Math.sin(angle),
 ];
 
-const PARALLEL_DISTANCE = 14;
+const PARALLEL_DISTANCE = 14 / 390;
 
-const getParallelAxes = (line: geometric.Line, offset = 0) => {
+const getParallelAxes = (line: geometric.Line, width: number, offset = 0) => {
   const a = line[0][0],
     b = line[0][1],
     c = line[1][0],
@@ -28,8 +28,8 @@ const getParallelAxes = (line: geometric.Line, offset = 0) => {
     offA = a + (c - a) * offset,
     offB = b + (d - b) * offset,
     size = Math.sqrt((c - a) ** 2 + (d - b) ** 2),
-    nx = ((b - d) / size) * PARALLEL_DISTANCE,
-    ny = ((c - a) / size) * PARALLEL_DISTANCE,
+    nx = ((b - d) / size) * PARALLEL_DISTANCE * width,
+    ny = ((c - a) / size) * PARALLEL_DISTANCE * width,
     p1 = [
       [offA - nx, offB - ny],
       [c - nx, d - ny],
@@ -51,6 +51,7 @@ export const getWineAxes = (
   wineAngles.flatMap((angle) =>
     getParallelAxes(
       [[center, center], getAxisEnd(angle, axisSize, center, offsetOut)],
+      2 * center,
       offsetIn
     )
   );
