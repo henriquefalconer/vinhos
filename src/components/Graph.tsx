@@ -1,15 +1,26 @@
 import React from 'react';
+import geometric from 'geometric';
 import { View } from 'react-native';
 import { Svg, Circle, Line, Path } from 'react-native-svg';
 
-import {
-  wineAngles,
-  foodAngles,
-  generatePolygonPath,
-  getAxisEnd,
-} from '../utils/radar';
+import { generatePolygonPath, getWineAxes, getFoodAxes } from '../utils/radar';
 
 import { useHarmonization } from '../hooks/useHarmonization';
+
+interface AxisProps {
+  line: geometric.Line;
+}
+
+const Axis: React.FC<AxisProps> = ({ line: [[x1, y1], [x2, y2]] }) => (
+  <Line
+    x1={`${x1}`}
+    y1={`${y1}`}
+    x2={`${x2}`}
+    y2={`${y2}`}
+    stroke="white"
+    strokeWidth="2.5"
+  />
+);
 
 const Graph: React.FC = () => {
   const { setGraphLayout, polygonData } = useHarmonization();
@@ -32,27 +43,17 @@ const Graph: React.FC = () => {
                 strokeWidth="2"
               />
             ))}
-            {[...wineAngles, ...foodAngles].map(
-              (
-                angle,
-                i,
-                _,
-                [x, y] = getAxisEnd(
-                  angle,
-                  polygonData.axisSize,
-                  polygonData.graphCenter,
-                  15
-                )
-              ) => (
-                <Line
-                  key={i}
-                  x1="50%"
-                  y1="50%"
-                  x2={`${x}`}
-                  y2={`${y}`}
-                  stroke="white"
-                  strokeWidth="2.5"
-                />
+            {getWineAxes(
+              polygonData.axisSize,
+              polygonData.graphCenter,
+              0.05,
+              15
+            ).map((line, i) => (
+              <Axis key={i} line={line} />
+            ))}
+            {getFoodAxes(polygonData.axisSize, polygonData.graphCenter, 15).map(
+              (line, i) => (
+                <Axis key={i} line={line} />
               )
             )}
             <Path

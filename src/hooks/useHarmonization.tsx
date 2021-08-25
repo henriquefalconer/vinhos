@@ -3,7 +3,7 @@ import { LayoutRectangle } from 'react-native';
 import geometric from 'geometric';
 
 import { buildPolygon, getPolygonArea } from '../utils/polygon';
-import { foodAngles, wineAngles } from '../utils/radar';
+import { getWineAxes, getFoodAxes } from '../utils/radar';
 
 export interface PolygonData {
   graphCenter: number;
@@ -44,18 +44,11 @@ export const HarmonizationProvider: React.FC = ({ children }) => {
     const graphPosY = graphLayout.y;
     const axisSize = graphCenter - 20;
 
-    const winePolygon = buildPolygon(
-      wineScores,
-      wineAngles,
-      graphCenter,
-      axisSize
-    );
-    const foodPolygon = buildPolygon(
-      foodScores,
-      foodAngles,
-      graphCenter,
-      axisSize
-    );
+    const axesWine = getWineAxes(axisSize, graphCenter);
+    const axesFood = getFoodAxes(axisSize, graphCenter);
+
+    const winePolygon = buildPolygon(wineScores, axesWine);
+    const foodPolygon = buildPolygon(foodScores, axesFood);
 
     const [wineArea, foodArea] = [winePolygon, foodPolygon].map(getPolygonArea);
 
