@@ -1,7 +1,7 @@
 const geometric = require('geometric');
 
 export const getPolygonArea = (p: geometric.Polygon) =>
-  geometric.polygonArea(p) / 319.5;
+  geometric.polygonArea(p) / 220.4;
 
 const getPolygonEnd = (
   [[x1, y1], [x2, y2]]: geometric.Line,
