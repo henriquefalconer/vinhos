@@ -12,14 +12,7 @@ interface AxisProps {
 }
 
 const Axis: React.FC<AxisProps> = ({ line: [[x1, y1], [x2, y2]] }) => (
-  <Line
-    x1={`${x1}`}
-    y1={`${y1}`}
-    x2={`${x2}`}
-    y2={`${y2}`}
-    stroke="white"
-    strokeWidth="2.5"
-  />
+  <Line {...{ x1, y1, x2, y2 }} stroke="white" strokeWidth="2.5" />
 );
 
 const Graph: React.FC = () => {
