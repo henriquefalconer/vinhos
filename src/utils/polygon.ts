@@ -14,5 +14,4 @@ const getPolygonPoint = (
 export const buildPolygon = (
   scores: number[],
   axes: geometric.Line[]
-): geometric.Polygon =>
-  scores.map((s, i) => getPolygonPoint(axes[i], Math.max(s, 1e-14) / 10));
+): geometric.Polygon => scores.map((s, i) => getPolygonPoint(axes[i], s / 10));
