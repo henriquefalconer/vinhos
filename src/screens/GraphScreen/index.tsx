@@ -16,12 +16,19 @@ const GraphScreen: React.FC = () => {
       <Graph />
       <S.Expand flex={2}>
         {polygonData && (
-          <S.Row>
-            <S.Text>Diferença de áreas: </S.Text>
-            <View>
-              <S.Bold>{polygonData.difference}</S.Bold>
-            </View>
-          </S.Row>
+          <>
+            <S.Text>
+              Área vinho: <S.Bold>{polygonData.wineArea.toFixed(2)}</S.Bold>
+            </S.Text>
+            <S.Size size={16} />
+            <S.Text>
+              Área alimento: <S.Bold>{polygonData.foodArea.toFixed(2)}</S.Bold>
+            </S.Text>
+            <S.Size size={16} />
+            <S.Text>
+              Diferença de áreas: <S.Bold>{polygonData.difference}</S.Bold>
+            </S.Text>
+          </>
         )}
       </S.Expand>
     </S.Container>

@@ -4,6 +4,10 @@ interface ExpandProps {
   flex: number;
 }
 
+interface SizeProps {
+  size: number;
+}
+
 export const Container = styled.View`
   align-items: center;
   flex: 1;
@@ -28,4 +32,8 @@ export const Bold = styled(Text)`
 export const Expand = styled.View<ExpandProps>`
   flex: ${(props) => props.flex};
   justify-content: center;
+`;
+
+export const Size = styled.View<SizeProps>`
+  height: ${(props) => props.size}px;
 `;
