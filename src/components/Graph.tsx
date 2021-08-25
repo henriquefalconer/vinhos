@@ -32,7 +32,7 @@ const Graph: React.FC = () => {
             strokeWidth="2"
           />
         ))}
-        {getWineAxes(axisSize, graphCenter, 0.05, 15).map((line, i) => (
+        {getWineAxes(axisSize, graphCenter, 15, 0.05).map((line, i) => (
           <Axis key={i} line={line} />
         ))}
         {getFoodAxes(axisSize, graphCenter, 15).map((line, i) => (

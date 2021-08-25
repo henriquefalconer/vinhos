@@ -46,8 +46,8 @@ const getParallelAxes = (line: geometric.Line, offset = 0) => {
 export const getWineAxes = (
   axisSize: number,
   center: number,
-  offsetIn = 0,
-  offsetOut = 0
+  offsetOut = 0,
+  offsetIn = 0
 ) =>
   wineAngles.flatMap((angle) =>
     getParallelAxes(
