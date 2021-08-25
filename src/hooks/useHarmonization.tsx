@@ -2,11 +2,7 @@ import React, { createContext, useContext, useMemo, useState } from 'react';
 import { LayoutRectangle } from 'react-native';
 import geometric from 'geometric';
 
-import {
-  buildPolygon,
-  getIntersectionPolygon,
-  getPolygonArea,
-} from '../utils/polygon';
+import { buildPolygon, getPolygonArea } from '../utils/polygon';
 import { foodAngles, wineAngles } from '../utils/radar';
 
 export interface PolygonData {
@@ -15,12 +11,9 @@ export interface PolygonData {
   axisSize: number;
   winePolygon: geometric.Polygon;
   foodPolygon: geometric.Polygon;
-  inter: geometric.Point[];
   wineArea: number;
   foodArea: number;
-  interArea: number;
-  unionArea: number;
-  harmonization: string;
+  difference: string;
 }
 
 interface HarmonizationContextData {
@@ -64,28 +57,19 @@ export const HarmonizationProvider: React.FC = ({ children }) => {
       axisSize
     );
 
-    const inter = getIntersectionPolygon(winePolygon, foodPolygon, graphCenter);
+    const [wineArea, foodArea] = [winePolygon, foodPolygon].map(getPolygonArea);
 
-    const [wineArea, foodArea, interArea] = [
-      winePolygon,
-      foodPolygon,
-      inter,
-    ].map(getPolygonArea);
-
-    const unionArea = wineArea + foodArea - interArea;
+    const difference = Math.abs(wineArea - foodArea).toFixed(2);
 
     return {
       winePolygon,
       foodPolygon,
-      inter,
       wineArea,
       foodArea,
-      interArea,
-      unionArea,
       graphCenter,
       graphPosY,
       axisSize,
-      harmonization: `${((interArea / unionArea) * 100).toFixed(2)}%`,
+      difference,
     };
   }, [wineScores, foodScores, graphLayout]);
 

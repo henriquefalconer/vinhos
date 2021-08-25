@@ -17,9 +17,9 @@ const GraphScreen: React.FC = () => {
       <S.Expand flex={2}>
         {polygonData && (
           <S.Row>
-            <S.Text>Combinação: </S.Text>
-            <View style={{ width: 98 }}>
-              <S.Bold>{polygonData.harmonization}</S.Bold>
+            <S.Text>Diferença de áreas: </S.Text>
+            <View>
+              <S.Bold>{polygonData.difference}</S.Bold>
             </View>
           </S.Row>
         )}

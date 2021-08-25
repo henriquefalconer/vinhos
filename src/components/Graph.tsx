@@ -113,23 +113,16 @@ const Graph: React.FC = () => {
                 />
               </LinearGradient>
             </Defs>
-            <>
-              <Path
-                d={generatePolygonPath(polygonData.winePolygon)}
-                fill="url(#grad1)"
-                stroke="white"
-              />
-              <Path
-                d={generatePolygonPath(polygonData.foodPolygon)}
-                fill="url(#grad2)"
-                stroke="white"
-              />
-              <Path
-                d={generatePolygonPath(polygonData.inter)}
-                fill="#f003"
-                stroke="red"
-              />
-            </>
+            <Path
+              d={generatePolygonPath(polygonData.winePolygon)}
+              fill="url(#grad1)"
+              stroke="white"
+            />
+            <Path
+              d={generatePolygonPath(polygonData.foodPolygon)}
+              fill="url(#grad2)"
+              stroke="white"
+            />
           </Svg>
           {wineScores.map((score, i, _, a = wineAngles[i]) => (
             <Knob
