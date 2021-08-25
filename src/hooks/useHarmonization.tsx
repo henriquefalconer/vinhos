@@ -35,7 +35,7 @@ export const HarmonizationProvider: React.FC = ({ children }) => {
 
   const polygonData = useMemo(() => {
     const graphCenter = width / 2;
-    const axisSize = width * 0.448718;
+    const axisSize = width * (175 / 390);
 
     const axesWine = getWineAxes(axisSize, graphCenter);
     const axesFood = getFoodAxes(axisSize, graphCenter);
