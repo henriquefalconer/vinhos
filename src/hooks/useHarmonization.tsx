@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useMemo, useState } from 'react';
-import { LayoutRectangle } from 'react-native';
+import { useWindowDimensions } from 'react-native';
 import geometric from 'geometric';
 
 import { buildPolygon, getPolygonArea } from '../utils/polygon';
@@ -7,7 +7,6 @@ import { getWineAxes, getFoodAxes } from '../utils/radar';
 
 export interface PolygonData {
   graphCenter: number;
-  graphPosY: number;
   axisSize: number;
   winePolygon: geometric.Polygon;
   foodPolygon: geometric.Polygon;
@@ -21,10 +20,7 @@ interface HarmonizationContextData {
   foodScores: number[];
   setWineScores: React.Dispatch<React.SetStateAction<number[]>>;
   setFoodScores: React.Dispatch<React.SetStateAction<number[]>>;
-  setGraphLayout: React.Dispatch<
-    React.SetStateAction<LayoutRectangle | undefined>
-  >;
-  polygonData?: PolygonData;
+  polygonData: PolygonData;
 }
 
 const HarmonizationContext = createContext<HarmonizationContextData>(
@@ -35,13 +31,10 @@ export const HarmonizationProvider: React.FC = ({ children }) => {
   const [wineScores, setWineScores] = useState([10, 9, 1, 1, 3, 7]);
   const [foodScores, setFoodScores] = useState([4, 3, 4, 10, 6, 5]);
 
-  const [graphLayout, setGraphLayout] = useState<LayoutRectangle>();
+  const { width } = useWindowDimensions();
 
   const polygonData = useMemo(() => {
-    if (!graphLayout) return;
-
-    const graphCenter = graphLayout.width / 2;
-    const graphPosY = graphLayout.y;
+    const graphCenter = width / 2;
     const axisSize = graphCenter - 20;
 
     const axesWine = getWineAxes(axisSize, graphCenter);
@@ -60,11 +53,10 @@ export const HarmonizationProvider: React.FC = ({ children }) => {
       wineArea,
       foodArea,
       graphCenter,
-      graphPosY,
       axisSize,
       difference,
     };
-  }, [wineScores, foodScores, graphLayout]);
+  }, [wineScores, foodScores]);
 
   return (
     <HarmonizationContext.Provider
@@ -73,7 +65,6 @@ export const HarmonizationProvider: React.FC = ({ children }) => {
         foodScores,
         setWineScores,
         setFoodScores,
-        setGraphLayout,
         polygonData,
       }}
     >
