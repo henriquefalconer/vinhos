@@ -3,7 +3,7 @@ import { getAxisEnd } from './radar';
 const geometric = require('geometric');
 
 export const getPolygonArea = (p: geometric.Polygon) =>
-  geometric.polygonArea(p) / 200;
+  geometric.polygonArea(p) / 319.5;
 
 export const buildPolygon = (
   points: number[],
