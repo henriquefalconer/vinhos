@@ -20,7 +20,7 @@ const getAxisEnd = (
 
 const PARALLEL_DISTANCE = 14;
 
-const getParallelAxes = (line: geometric.Line, offset: number) => {
+const getParallelAxes = (line: geometric.Line, offset = 0) => {
   const a = line[0][0],
     b = line[0][1],
     c = line[1][0],
