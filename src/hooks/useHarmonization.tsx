@@ -32,8 +32,8 @@ const HarmonizationContext = createContext<HarmonizationContextData>(
 );
 
 export const HarmonizationProvider: React.FC = ({ children }) => {
-  const [wineScores, setWineScores] = useState([10, 7, 10]);
-  const [foodScores, setFoodScores] = useState([4, 8, 10, 2, 9, 1]);
+  const [wineScores, setWineScores] = useState([10, 9, 1, 1, 3, 7]);
+  const [foodScores, setFoodScores] = useState([4, 3, 4, 10, 6, 5]);
 
   const [graphLayout, setGraphLayout] = useState<LayoutRectangle>();
 
