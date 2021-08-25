@@ -58,9 +58,9 @@ export const getWineAxes = (
 
 export const getFoodAxes = (axisSize: number, center: number, offset = 0) =>
   foodAngles.map(
-    (a) =>
+    (angle) =>
       [
         [center, center],
-        getAxisEnd(a, axisSize, center, offset),
+        getAxisEnd(angle, axisSize, center, offset),
       ] as geometric.Line
   );
