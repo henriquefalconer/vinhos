@@ -1,7 +1,11 @@
 import React, { createContext, useContext, useMemo, useState } from 'react';
 import geometric from 'geometric';
 
-import { buildPolygon, getPolygonArea } from '../utils/polygon';
+import {
+  buildPolygon,
+  getPolygonArea,
+  getPolygonCentroid,
+} from '../utils/polygon';
 import { getWineAxes, getFoodAxes } from '../utils/radar';
 
 export interface PolygonData {
@@ -36,6 +40,12 @@ export const HarmonizationProvider: React.FC = ({ children }) => {
 
     const winePolygon = buildPolygon(wineScores, axesWine);
     const foodPolygon = buildPolygon(foodScores, axesFood);
+
+    const [wineCentroid, foodCentroid] = [winePolygon, foodPolygon].map(
+      getPolygonCentroid
+    );
+
+    console.log({ wineCentroid, foodCentroid });
 
     const [wineArea, foodArea] = [winePolygon, foodPolygon].map(getPolygonArea);
 

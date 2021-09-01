@@ -3,6 +3,9 @@ const geometric = require('geometric');
 export const getPolygonArea = (p: geometric.Polygon): number =>
   geometric.polygonArea(p);
 
+export const getPolygonCentroid = (p: geometric.Polygon): number =>
+  geometric.polygonCentroid(p);
+
 const getPolygonPoint = (
   [[x1, y1], [x2, y2]]: geometric.Line,
   multiplier: number
