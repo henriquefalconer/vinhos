@@ -1,6 +1,6 @@
 import geometric from 'geometric';
 
-const covertAngle = (a: number) => ((a - 90) * Math.PI) / 180;
+const covertAngle = (a: number) => ((90 - a) * Math.PI) / 180;
 
 const wineAngles = [0, 120, 240].map(covertAngle);
 const foodAngles = [49, 71, 169, 191, 289, 311].map(covertAngle);
@@ -31,12 +31,12 @@ const getParallelAxes = (line: geometric.Line, width: number, offset = 0) => {
     nx = ((b - d) / size) * PARALLEL_DISTANCE * width,
     ny = ((c - a) / size) * PARALLEL_DISTANCE * width,
     p1 = [
-      [offA - nx, offB - ny],
-      [c - nx, d - ny],
-    ],
-    p2 = [
       [offA + nx, offB + ny],
       [c + nx, d + ny],
+    ],
+    p2 = [
+      [offA - nx, offB - ny],
+      [c - nx, d - ny],
     ];
 
   return [p1, p2] as [geometric.Line, geometric.Line];
@@ -44,7 +44,7 @@ const getParallelAxes = (line: geometric.Line, width: number, offset = 0) => {
 
 export const getWineAxes = (
   axisSize: number,
-  center: number,
+  center = axisSize,
   offsetOut = 0,
   offsetIn = 0
 ) =>
@@ -56,7 +56,7 @@ export const getWineAxes = (
     )
   );
 
-export const getFoodAxes = (axisSize: number, center: number, offset = 0) =>
+export const getFoodAxes = (axisSize: number, center = axisSize, offset = 0) =>
   foodAngles.map(
     (angle) =>
       [

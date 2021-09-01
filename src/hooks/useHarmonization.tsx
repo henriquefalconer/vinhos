@@ -1,13 +1,10 @@
 import React, { createContext, useContext, useMemo, useState } from 'react';
-import { useWindowDimensions } from 'react-native';
 import geometric from 'geometric';
 
 import { buildPolygon, getPolygonArea } from '../utils/polygon';
 import { getWineAxes, getFoodAxes } from '../utils/radar';
 
 export interface PolygonData {
-  graphCenter: number;
-  axisSize: number;
   winePolygon: geometric.Polygon;
   foodPolygon: geometric.Polygon;
   wineArea: number;
@@ -27,25 +24,20 @@ const HarmonizationContext = createContext<HarmonizationContextData>(
   {} as HarmonizationContextData
 );
 
-export const HarmonizationProvider: React.FC = ({ children }) => {
-  const [wineScores, setWineScores] = useState([10, 9, 1, 1, 3, 7]);
-  const [foodScores, setFoodScores] = useState([4, 3, 4, 10, 6, 5]);
+export const AXIS_SIZE = 10;
 
-  const { width } = useWindowDimensions();
+export const HarmonizationProvider: React.FC = ({ children }) => {
+  const [wineScores, setWineScores] = useState([10, 10, 10, 10, 10, 10]);
+  const [foodScores, setFoodScores] = useState([6, 4, 4, 5, 3, 4]);
 
   const polygonData = useMemo(() => {
-    const graphCenter = width / 2;
-    const axisSize = width * (175 / 390);
-
-    const axesWine = getWineAxes(axisSize, graphCenter);
-    const axesFood = getFoodAxes(axisSize, graphCenter);
+    const axesWine = getWineAxes(AXIS_SIZE);
+    const axesFood = getFoodAxes(AXIS_SIZE);
 
     const winePolygon = buildPolygon(wineScores, axesWine);
     const foodPolygon = buildPolygon(foodScores, axesFood);
 
-    const [wineArea, foodArea] = [winePolygon, foodPolygon].map(
-      (p) => getPolygonArea(p) / width ** 2
-    );
+    const [wineArea, foodArea] = [winePolygon, foodPolygon].map(getPolygonArea);
 
     const areaDiff = Math.abs(wineArea - foodArea);
 
@@ -54,8 +46,6 @@ export const HarmonizationProvider: React.FC = ({ children }) => {
       foodPolygon,
       wineArea,
       foodArea,
-      graphCenter,
-      axisSize,
       areaDiff,
     };
   }, [wineScores, foodScores]);

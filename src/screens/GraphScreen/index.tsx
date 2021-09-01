@@ -15,15 +15,15 @@ const GraphScreen: React.FC = () => {
       <Graph />
       <S.Expand flex={2}>
         <S.Text>
-          Área vinho: <S.Bold>{wineArea.toFixed(2)}</S.Bold>
+          Área vinho: <S.Bold>{wineArea.toFixed(4)}</S.Bold>
         </S.Text>
         <S.Size size={16} />
         <S.Text>
-          Área alimento: <S.Bold>{foodArea.toFixed(2)}</S.Bold>
+          Área alimento: <S.Bold>{foodArea.toFixed(4)}</S.Bold>
         </S.Text>
         <S.Size size={16} />
         <S.Text>
-          Diferença de áreas: <S.Bold>{areaDiff.toFixed(2)}</S.Bold>
+          Diferença de áreas: <S.Bold>{areaDiff.toFixed(4)}</S.Bold>
         </S.Text>
       </S.Expand>
     </S.Container>
